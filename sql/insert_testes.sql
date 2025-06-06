@@ -46,3 +46,27 @@ VALUES (2, 1, '2025-06-15', '10:00', 'AGENDADA');
 -- Dr. Carlos com João da Silva em outra data
 INSERT INTO consulta (idmedico, idpaciente, data, hora, status)
 VALUES (1, 1, '2025-06-16', '08:00', 'AGENDADA');
+
+/*
+Testes para validar as regras (devem falhar)
+❗ Exceder 4 consultas por médico no mesmo dia:
+*/
+-- 3ª consulta no mesmo dia
+INSERT INTO consulta (idmedico, idpaciente, data, hora, status)
+VALUES (1, 2, '2025-06-15', '11:00', 'AGENDADA');
+
+-- 4ª consulta no mesmo dia
+INSERT INTO consulta (idmedico, idpaciente, data, hora, status)
+VALUES (1, 2, '2025-06-15', '12:00', 'AGENDADA');
+
+-- 5ª consulta no mesmo dia → deve falhar!
+INSERT INTO consulta (idmedico, idpaciente, data, hora, status)
+VALUES (1, 2, '2025-06-15', '13:00', 'AGENDADA');
+
+
+--Mesmo paciente tentando agendar com mesmo médico no mesmo dia:
+-- Já existe consulta com João e Dr. Carlos em 2025-06-15
+-- Isso aqui deve falhar:
+INSERT INTO consulta (idmedico, idpaciente, data, hora, status)
+VALUES (1, 1, '2025-06-15', '14:00', 'AGENDADA');
+
